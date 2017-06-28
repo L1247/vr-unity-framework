@@ -132,7 +132,7 @@ public class CameraManager : Photon.MonoBehaviour
         }
         else
         {
-            target = playerList[_playerIndex].transform.FindChild("Head").transform;
+            target = playerList[_playerIndex].transform.Find("Head").transform;
             setLutifyColor(playerList[_playerIndex].gameObject);
         }
     }
@@ -163,16 +163,16 @@ public class CameraManager : Photon.MonoBehaviour
         GameObject obj = GameObject.Find("FramesPerSecondCanvas");
         if (!IsDisableGui)
         {
-            if (!obj.transform.FindChild("FramesPerSecondText").GetComponent<Text>().enabled)
+            if (!obj.transform.Find("FramesPerSecondText").GetComponent<Text>().enabled)
             {
-                obj.transform.FindChild("FramesPerSecondText").GetComponent<Text>().enabled = true;
+                obj.transform.Find("FramesPerSecondText").GetComponent<Text>().enabled = true;
             }
         }
         else
         {
-            if (obj.transform.FindChild("FramesPerSecondText").GetComponent<Text>().enabled)
+            if (obj.transform.Find("FramesPerSecondText").GetComponent<Text>().enabled)
             {
-                obj.transform.FindChild("FramesPerSecondText").GetComponent<Text>().enabled = false;
+                obj.transform.Find("FramesPerSecondText").GetComponent<Text>().enabled = false;
             }
         }
 
@@ -295,7 +295,7 @@ public class CameraManager : Photon.MonoBehaviour
             {
                 if (selectedTargetID == string.Empty)
                 {
-                    target = playerList[0].transform.FindChild("Head");
+                    target = playerList[0].transform.Find("Head");
                     selectedTargetID = playerList[0].GetPhotonView().owner.ID.ToString();
                 }
 
@@ -314,7 +314,7 @@ public class CameraManager : Photon.MonoBehaviour
 
                     if ((GUI.Button(new Rect(0, i, 200, 50), temp1 + Name, (selectedTargetID == TargetID) ? Selectedguistyle : Defaultguistyle) || Input.GetKeyDown(TargetID)) && observedMode == ObservedMode.Manual)
                     {
-                        target = item.transform.FindChild("Head");
+                        target = item.transform.Find("Head");
                         setLutifyColor(item.gameObject);
                         selectedTargetID = TargetID;
                     }

@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_Projector' with 'unity_Projector'
 // Upgrade NOTE: replaced '_ProjectorClip' with 'unity_ProjectorClip'
 
@@ -54,7 +56,7 @@ float4 _MainTex_ST;
 	v2f vert (appdata_t v)
 	{
 		v2f o;
-		o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.vertex = UnityObjectToClipPos(v.vertex);
 		o.uvMainTex = mul (unity_Projector, v.vertex);
 		o.uvFalloff = mul (unity_ProjectorClip, v.vertex);
 		o.texcoord = TRANSFORM_TEX( o.uvMainTex.xyz,_MainTex);

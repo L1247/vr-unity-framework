@@ -33,7 +33,7 @@ public class FPSFireManager_network : Photon.MonoBehaviour
         sm = star.framework.system.SoundManager.instance;
         M4A1_Anim = M4A1_Sopmod.GetComponent<Animator>();
         M4A1_Shell = Shell_Copper.GetComponent<Animator>();
-        M4A1_Magazine = M4A1_Sopmod.transform.FindChild("M4A1_Sopmod_Magazine").GetComponent<Animator>();
+        M4A1_Magazine = M4A1_Sopmod.transform.Find("M4A1_Sopmod_Magazine").GetComponent<Animator>();
         //AudioClip ac = sm.GetAudioClip(GameEM.SoundList.玩家_沒子彈);
         //noBulleteSoundLength = ac.length;
         init();

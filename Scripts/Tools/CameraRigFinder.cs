@@ -33,7 +33,7 @@ public class CameraRigFinder
         GameObject eyes = GetHead_Eyes();
         
         //Head/ears
-        return eyes.transform.parent.FindChild( "Camera (ears)").gameObject;
+        return eyes.transform.parent.Find( "Camera (ears)").gameObject;
     }
 
     /// <summary>
