@@ -2,10 +2,10 @@
 
 //======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
-// Purpose: Used for objects that can be seen through objects in fron of them
+// Purpose: Used for objects that can be seen through objects in front of them
 //
 //=============================================================================
-
+// UNITY_SHADER_NO_UPGRADE
 Shader "Valve/VR/SeeThru"
 {
 	Properties
@@ -34,7 +34,7 @@ Shader "Valve/VR/SeeThru"
 
 			CGPROGRAM
 				#pragma target 5.0
-				#pragma only_renderers d3d11
+				#pragma only_renderers d3d11 vulkan
 				#pragma exclude_renderers gles
 
 				#pragma vertex MainVS

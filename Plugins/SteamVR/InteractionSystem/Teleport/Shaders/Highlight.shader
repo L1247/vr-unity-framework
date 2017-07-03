@@ -5,7 +5,7 @@
 // Purpose: Used for the teleport markers
 //
 //=============================================================================
-
+// UNITY_SHADER_NO_UPGRADE
 Shader "Valve/VR/Highlight"
 {
 	Properties
@@ -21,7 +21,7 @@ Shader "Valve/VR/Highlight"
 		
 		// Pragmas --------------------------------------------------------------------------------------------------------------------------------------------------
 		#pragma target 5.0
-		#pragma only_renderers d3d11
+		#pragma only_renderers d3d11 vulkan
 		#pragma exclude_renderers gles
 
 		// Includes -------------------------------------------------------------------------------------------------------------------------------------------------
