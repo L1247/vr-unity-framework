@@ -53,8 +53,8 @@ public class PlayerControl : Photon.PunBehaviour
             Debug.LogWarning( "[ " + gameObject.name + " ] Don't Have HPController " );
         else
         {
-            hpcontroller.Die += OnDie;
-            hpcontroller.Hit += OnHit;
+            hpcontroller.OnDie += OnDie;
+            hpcontroller.OnHit += OnHit;
         }
 
         this.OnPlayerDie += test;
@@ -196,11 +196,11 @@ public class PlayerControl : Photon.PunBehaviour
     {
         if ( photonView.isMine )
         {
-            if ( hpcontroller.getHP() <= ( hpcontroller.Hp / 1 ) && !_isLowHP )
-            {
-                _isLowHP = true;
-                _id = ccEngine.ccTimeEvent.Instance.f_RegEvent( 6f , playsound , true );
-            }
+            //if ( hpcontroller.getHP() <= ( hpcontroller.Hp / 1 ) && !_isLowHP )
+            //{
+            //    _isLowHP = true;
+            //    _id = ccEngine.ccTimeEvent.Instance.f_RegEvent( 6f , playsound , true );
+            //}
         }
     }
 
@@ -215,12 +215,12 @@ public class PlayerControl : Photon.PunBehaviour
     {
         if ( stream.isWriting )
         {
-            stream.SendNext( hpcontroller.getHP() );
+            //stream.SendNext( hpcontroller.getHP() );
         }
         else
         {
             tempHP = ( int ) stream.ReceiveNext();
-            hpcontroller.setHP( tempHP );
+            hpcontroller.SetHP( tempHP );
         }
     }
 
@@ -229,7 +229,7 @@ public class PlayerControl : Photon.PunBehaviour
         if ( photonView.isMine )
         {
             hpcontroller.HPControllerInit();
-            tempHP = hpcontroller.getHP();
+            //tempHP = hpcontroller.getHP();
 
             if ( lutifyscript )
             {
@@ -241,15 +241,15 @@ public class PlayerControl : Photon.PunBehaviour
 
     public void ReducePlayerHP ( int reduceNum )
     {
-        if ( photonView.isMine && hpcontroller.getHP() > 0 )
-        {
-            hpcontroller.setHit( reduceNum );
+        //if ( photonView.isMine && hpcontroller.getHP() > 0 )
+        //{
+        //    hpcontroller.setHit( reduceNum );
 
-            if ( !isBloodEffect )
-            {
-                StartCoroutine( CamBloodEffect() );
-            }
-        }
+        //    if ( !isBloodEffect )
+        //    {
+        //        StartCoroutine( CamBloodEffect() );
+        //    }
+        //}
     }
 
     IEnumerator CamBloodEffect ( )
@@ -268,12 +268,14 @@ public class PlayerControl : Photon.PunBehaviour
 
     public int getPlayerHp ( )
     {
-        return hpcontroller.getHP();
+        return 0;
+        //return hpcontroller.getHP();
     }
 
     public bool IsPlayerAlive ( )
     {
-        return ( hpcontroller.getHP() > 0 ) ? true : false;
+        return false;
+        //return ( hpcontroller.getHP() > 0 ) ? true : false;
     }
 
     private void setPlayerDie ( )
@@ -325,7 +327,7 @@ public class PlayerControl : Photon.PunBehaviour
         if ( hpcontroller == null )
             Debug.LogWarning( "[ " + gameObject.name + " ] Don't Have HPController " );
         else
-            hpcontroller.Die -= OnDie;
+            hpcontroller.OnDie -= OnDie;
 
         //ccMessage.f_RemoveListener( GameState.RPC_Restart , Restart );
 
