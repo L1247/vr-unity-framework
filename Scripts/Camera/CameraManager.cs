@@ -40,7 +40,7 @@ public class CameraManager : Photon.MonoBehaviour
     private int _playerIndex;
     private Text TimeText;
     private int eventID;
-    public ccMessage m_GameMessage = new ccMessage();
+    public srMessage m_GameMessage = new srMessage();
 
     List<Transform> playerList;
 
