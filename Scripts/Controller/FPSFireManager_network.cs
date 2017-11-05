@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using star.framework.system;
 public class FPSFireManager_network : Photon.MonoBehaviour
 {
     public ImpactInfo[] ImpactElemets = new ImpactInfo[0];
@@ -23,14 +20,12 @@ public class FPSFireManager_network : Photon.MonoBehaviour
     private bool isReloading = false;
     private BloodEffectID bloodID;
 
-    star.framework.system.SoundManager sm;
     float ShootInterval = 0.1f;
     float noBulleteSoundLength;
     bool isNoBulletSoundPlayEnd;
 
     void Start()
     {
-        sm = star.framework.system.SoundManager.instance;
         M4A1_Anim = M4A1_Sopmod.GetComponent<Animator>();
         M4A1_Shell = Shell_Copper.GetComponent<Animator>();
         M4A1_Magazine = M4A1_Sopmod.transform.Find("M4A1_Sopmod_Magazine").GetComponent<Animator>();

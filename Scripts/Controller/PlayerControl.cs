@@ -27,8 +27,6 @@ public class PlayerControl : Photon.PunBehaviour
     public delegate void PlayerControlEvent ( PlayerControl sender );
     public event PlayerControlEvent OnPlayerDie;
 
-    star.framework.system.SoundManager sm;
-
     void Awake ( )
     {
         ownerID = photonView.owner.ID;
@@ -41,7 +39,6 @@ public class PlayerControl : Photon.PunBehaviour
         //ccMessage.f_AddListener( GameState.RPC_Restart , Restart );
         //ccMessage.f_AddListener( DinoGameEM.GameEvent.RPC_FireUP, FireUPRPC );
 
-        sm = star.framework.system.SoundManager.instance;
         lutifyscript = CameraRigFinder.GetHead_Eyes().GetComponent<Lutify>();
         screenoverlay = CameraRigFinder.GetHead_Eyes().GetComponent<ScreenOverlay>();
         

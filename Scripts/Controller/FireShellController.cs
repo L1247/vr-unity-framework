@@ -20,13 +20,10 @@ public class FireShellController : Photon.MonoBehaviour {
     private bool isReloading = false;
     private bool isOnFireZone = false;
 
-    star.framework.system.SoundManager sm;
-
     void Start()
     {
         shellcontroller.DestinationMarkerEnter += ontest1;
         shellcontroller.DestinationMarkerExit +=  ontest2;
-        sm = star.framework.system.SoundManager.instance;
     }
 
     void ontest1(object sender, DestinationMarkerEventArgs e)
