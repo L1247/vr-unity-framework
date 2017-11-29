@@ -1,9 +1,11 @@
-﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: Used for the teleport markers
 //
 //=============================================================================
-// UNITY_SHADER_NO_UPGRADE
+
 Shader "Valve/VR/Highlight"
 {
 	Properties
@@ -19,7 +21,7 @@ Shader "Valve/VR/Highlight"
 		
 		// Pragmas --------------------------------------------------------------------------------------------------------------------------------------------------
 		#pragma target 5.0
-		#pragma only_renderers d3d11 vulkan
+		#pragma only_renderers d3d11
 		#pragma exclude_renderers gles
 
 		// Includes -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -54,7 +56,7 @@ Shader "Valve/VR/Highlight"
 #if UNITY_VERSION >= 540
 			o.vertex = UnityObjectToClipPos(i.vertex);
 #else
-			o.vertex = mul(UNITY_MATRIX_MVP, i.vertex);
+			o.vertex = UnityObjectToClipPos(i.vertex);
 #endif
 			o.uv = TRANSFORM_TEX( i.uv, _MainTex );
 			o.color = i.color;

@@ -23,9 +23,10 @@ public class Explo : MonoBehaviour
     float bezierCurveLocation = 0;
     // Use this for initialization
 
-
+    //star.framework.system.SoundManager sm;
     void Start()
     {
+        //sm = star.framework.system.SoundManager.instance;
     }
 
     //private void OnDrawGizmos()

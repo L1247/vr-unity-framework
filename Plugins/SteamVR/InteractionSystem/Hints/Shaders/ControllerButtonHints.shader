@@ -1,9 +1,11 @@
-﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 //
 // Purpose: 
 //
 //=============================================================================
-// UNITY_SHADER_NO_UPGRADE
+
 Shader "Valve/VR/ControllerButtonHints"
 {
 	Properties
@@ -60,7 +62,7 @@ Shader "Valve/VR/ControllerButtonHints"
 #if UNITY_VERSION >= 540
 				o.vertex = UnityObjectToClipPos(i.vertex);
 #else
-				o.vertex = mul(UNITY_MATRIX_MVP, i.vertex);
+				o.vertex = UnityObjectToClipPos(i.vertex);
 #endif				
 				return o;
 			}
@@ -114,7 +116,7 @@ Shader "Valve/VR/ControllerButtonHints"
 #if UNITY_VERSION >= 540
 				o.vertex = UnityObjectToClipPos(i.vertex);
 #else
-				o.vertex = mul(UNITY_MATRIX_MVP, i.vertex);
+				o.vertex = UnityObjectToClipPos(i.vertex);
 #endif
 				o.uv = TRANSFORM_TEX( i.uv, _MainTex );
 				

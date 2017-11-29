@@ -275,15 +275,11 @@ public class SteamVR_Render : MonoBehaviour
 
 	void OnEnable()
 	{
-		StartCoroutine(RenderLoop());
+		StartCoroutine("RenderLoop");
 		SteamVR_Events.InputFocus.Listen(OnInputFocus);
-		SteamVR_Events.System(EVREventType.VREvent_Quit).Listen(OnQuit);
-		SteamVR_Events.System(EVREventType.VREvent_RequestScreenshot).Listen(OnRequestScreenshot);
-#if UNITY_2017_1_OR_NEWER
-		Application.onBeforeRender += OnBeforeRender;
-#else
-		Camera.onPreCull += OnCameraPreCull;
-#endif
+		SteamVR_Events.System("Quit").Listen(OnQuit);
+		SteamVR_Events.System("RequestScreenshot").Listen(OnRequestScreenshot);
+
 		var vr = SteamVR.instance;
 		if (vr == null)
 		{
@@ -298,13 +294,8 @@ public class SteamVR_Render : MonoBehaviour
 	{
 		StopAllCoroutines();
 		SteamVR_Events.InputFocus.Remove(OnInputFocus);
-		SteamVR_Events.System(EVREventType.VREvent_Quit).Remove(OnQuit);
-		SteamVR_Events.System(EVREventType.VREvent_RequestScreenshot).Remove(OnRequestScreenshot);
-#if UNITY_2017_1_OR_NEWER
-		Application.onBeforeRender -= OnBeforeRender;
-#else
-		Camera.onPreCull -= OnCameraPreCull;
-#endif
+		SteamVR_Events.System("Quit").Remove(OnQuit);
+		SteamVR_Events.System("RequestScreenshot").Remove(OnRequestScreenshot);
 	}
 
 	void Awake()
@@ -321,34 +312,20 @@ public class SteamVR_Render : MonoBehaviour
 		}
 	}
 
-	public void UpdatePoses()
-	{
-		var compositor = OpenVR.Compositor;
-		if (compositor != null)
-		{
-			compositor.GetLastPoses(poses, gamePoses);
-			SteamVR_Events.NewPoses.Send(poses);
-			SteamVR_Events.NewPosesApplied.Send();
-		}
-	}
-
-#if UNITY_2017_1_OR_NEWER
-	void OnBeforeRender() { UpdatePoses(); }
-#else
-	void OnCameraPreCull(Camera cam)
-	{
-		// Only update poses on the first camera per frame.
-		if (Time.frameCount != lastFrameCount)
-		{
-			lastFrameCount = Time.frameCount;
-			UpdatePoses();
-		}
-	}
-	static int lastFrameCount = -1;
+#if !(UNITY_5_6)
+	private SteamVR_UpdatePoses poseUpdater;
 #endif
 
 	void Update()
 	{
+#if !(UNITY_5_6)
+		if (poseUpdater == null)
+		{
+			var go = new GameObject("poseUpdater");
+			go.transform.parent = transform;
+			poseUpdater = go.AddComponent<SteamVR_UpdatePoses>();
+		}
+#endif
 		// Force controller update in case no one else called this frame to ensure prevState gets updated.
 		SteamVR_Controller.Update();
 
@@ -384,7 +361,9 @@ public class SteamVR_Render : MonoBehaviour
 						SteamVR_Events.HideRenderModels.Send(true);
 						break;
 					default:
-						SteamVR_Events.System((EVREventType)vrEvent.eventType).Send(vrEvent);
+						var name = System.Enum.GetName(typeof(EVREventType), vrEvent.eventType);
+						if (name != null)
+							SteamVR_Events.System(name.Substring(8) /*strip VREvent_*/).Send(vrEvent);
 						break;
 				}
 			}
